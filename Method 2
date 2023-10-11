@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+void lastDigit(int n, int result[], int countFive)
+{
+  int number = n; 
+
+  //Base condition
+  if (number == 1)
+      return;
+
+
+  while (number % 5 == 0) {
+        number /= 5;
+        countFive++;
+  }
+
+
+  while (countFive != 0 && (number & 1) == 0) {
+        number /= 2; 
+        countFive--;
+  }
+
+  result[0] = (result[0] * (number % 10)) % 10;
+  lastDigit(n - 1, result, countFive);
+
+
+}
+
+int lastNon0Digit(int n)
+{
+   int result[] = { 1 }; // single element array.
+   lastDigit(n, result, 0);
+   return result[0];
+}
+
+int main()
+{
+   int n=5;
+   printf("%d ",lastNon0Digit(n));
+   return 0;
+}
